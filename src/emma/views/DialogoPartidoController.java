@@ -15,6 +15,8 @@ import java.util.Date;
 
 public class DialogoPartidoController {
 
+    //hola
+
     @FXML
     private TextField tv_local;
     @FXML
