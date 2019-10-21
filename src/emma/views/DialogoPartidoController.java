@@ -11,11 +11,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DialogoPartidoController {
 
-    //hola
+    private Partido partidoM;
+    private int indice;
 
     @FXML
     private TextField tv_local;
@@ -33,44 +35,55 @@ public class DialogoPartidoController {
     @FXML
     private Button btn_aceptar;
     @FXML
-    void altaPartido(ActionEvent event) {
+    void altaModificarPartido(ActionEvent event) {
 
-        String local, visitante, div;
-        int resul1, resul2;
-        Date fecha = null;
+        if(partidoM!=null){
 
-        local = tv_local.getText();
-        visitante = tv_visitante.getText();
-        fecha = Utils.convertirLocalDate2Date(dp_fecha.getValue());
-        resul1 = Integer.parseInt(tv_r1.getText());
-        resul2 = Integer.parseInt(tv_r2.getText());
-        div = (String) cb_division.getSelectionModel().getSelectedItem();
+            partidoM.setLocal(tv_local.getText());
+            tv_visitante.setText(partidoM.getVisitante());
+            tv_r1.setText(String.valueOf(partidoM.getResul1()));
+            tv_r2.setText(String.valueOf(partidoM.getResul2()));
+          //  cb_division.getSelectionModel().select(partidoM.getDivision());
+            LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
+            Logica.getInstance().modificarPartido(partidoM, indice);
 
-        Partido p = new Partido(local, visitante, div, resul1, resul2, fecha);
+        }
 
-        Logica.getInstance().addPartido(p);
+        else {
+
+            String local, visitante, div;
+            int resul1, resul2;
+            Date fecha = null;
+
+            local = tv_local.getText();
+            visitante = tv_visitante.getText();
+            fecha = Utils.convertirLocalDate2Date(dp_fecha.getValue());
+            resul1 = Integer.parseInt(tv_r1.getText());
+            resul2 = Integer.parseInt(tv_r2.getText());
+            div = (String) cb_division.getSelectionModel().getSelectedItem();
+
+            Partido p = new Partido(local, visitante, div, resul1, resul2, fecha);
+
+            Logica.getInstance().addPartido(p);
+
+        }
 
         Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
         stage.close();
     }
-    void modificarPartido(ActionEvent event) {
 
-        String local, visitante, div;
-        int resul1, resul2;
-        Date fecha = null;
+    public void setPartidoModificar(Partido partidoM, int indice)
+    {
+        this.partidoM = partidoM;
+        this.indice = indice;
 
-        local = tv_local.getText();
-        visitante = tv_visitante.getText();
-        fecha = Utils.convertirLocalDate2Date(dp_fecha.getValue());
-        resul1 = Integer.parseInt(tv_r1.getText());
-        resul2 = Integer.parseInt(tv_r2.getText());
-        div = (String) cb_division.getSelectionModel().getSelectedItem();
+        tv_local.setText(partidoM.getLocal());
+        tv_visitante.setText(partidoM.getVisitante());
+        tv_r1.setText(String.valueOf(partidoM.getResul1()));
+        tv_r2.setText(String.valueOf(partidoM.getResul2()));
+       // cb_division.getSelectionModel().select(partidoM.getDivision());
+        LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
+        dp_fecha.setValue(localD);
 
-        Partido p = new Partido(local, visitante, div, resul1, resul2, fecha);
-
-        Logica.getInstance().addPartido(p);
-
-        Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
-        stage.close();
     }
 }

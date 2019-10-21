@@ -13,9 +13,10 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu fx:id="menu_alta" mnemonicParsing="false" onAction="#altaPartido" text="Partidos">
+          <Menu fx:id="menu_alta" mnemonicParsing="false" text="Partidos">
             <items>
-              <MenuItem mnemonicParsing="false" text="Alta..." />
+            <MenuItem fx:id="altaPartido" mnemonicParsing="false" onAction="#altaPartido" text="Alta..." />
+            <MenuItem fx:id="modificarPartido" mnemonicParsing="false" onAction="#modificarPartido" text="Modificar..." />
             </items>
           </Menu>
         </menus>

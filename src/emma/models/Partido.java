@@ -54,6 +54,35 @@ public class Partido implements Comparable<Partido>, Serializable {
         marcador = resul1 + "-" + resul2;
         return marcador;
     }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setVisitante(String visitante) {
+        this.visitante = visitante;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public void setResul1(int resul1) {
+        this.resul1 = resul1;
+    }
+
+    public void setResul2(int resul2) {
+        this.resul2 = resul2;
+    }
+
+    public void setMarcador(String marcador) {
+        this.marcador = marcador;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     public int compareTo(Partido o) {
         return fecha.compareTo(o.fecha);
     }

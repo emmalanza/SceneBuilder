@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
+
         @FXML
         private Menu menu_alta;
         @FXML
@@ -27,13 +28,34 @@ public class MainWindowController implements Initializable {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 Parent root = fxmlLoader.load(getClass().getResource("DialogoPartido.fxml"));
-                DialogoPartidoController controller = fxmlLoader.getController();
 
                 Stage stage = new Stage();
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.setScene(new Scene(root));
                 stage.show();
         }
+
+        @FXML
+        void modificarPartido(ActionEvent event) {
+
+                try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DialogoPartido.fxml"));
+                        Parent root = fxmlLoader.load();
+                        DialogoPartidoController controller = fxmlLoader.getController();
+                        Partido partido = tv_partidos.getSelectionModel().getSelectedItem();
+                        controller.setPartidoModificar(partido,tv_partidos.getSelectionModel().getSelectedIndex());
+
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.WINDOW_MODAL);
+                        stage.setScene(new Scene(root, 300, 275));
+                        stage.show();
+                }
+                catch (IOException e)
+                {
+                        e.printStackTrace();
+                }
+        }
+
         public void initialize(URL url, ResourceBundle resourceBundle){
             tv_partidos.setItems(Logica.getInstance().getLista());
         }

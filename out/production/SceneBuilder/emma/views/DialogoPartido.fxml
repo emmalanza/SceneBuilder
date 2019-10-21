@@ -11,7 +11,7 @@
 
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="untitled" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emma.views.PantallaAltaController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="untitled" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emma.views.DialogoPartidoController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
@@ -35,7 +35,7 @@
              </items>
              </ComboBox>
             <DatePicker fx:id="dp_fecha" layoutX="369.0" layoutY="184.0" />
-            <Button fx:id="btn_aceptar" layoutX="273.0" layoutY="307.0" mnemonicParsing="false" onAction="#altaPartido" text="ACEPTAR">
+            <Button fx:id="btn_aceptar" layoutX="273.0" layoutY="307.0" mnemonicParsing="false" onAction="#altaModificarPartido" text="ACEPTAR">
                <font>
                   <Font size="13.0" />
                </font>
