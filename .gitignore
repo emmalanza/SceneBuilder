@@ -18,7 +18,9 @@
 *.zip
 *.tar.gz
 *.rar
+*.rar
 *.dat
+*.iml
 
 # Directory
 .idea/
