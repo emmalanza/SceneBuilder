@@ -28,7 +28,7 @@ public class DialogoPartidoController {
     @FXML
     private TextField tv_visitante;
     @FXML
-    private ComboBox<?> cb_division;
+    private ComboBox<String> cb_division;
     @FXML
     private DatePicker dp_fecha;
 
@@ -40,11 +40,12 @@ public class DialogoPartidoController {
         if(partidoM!=null){
 
             partidoM.setLocal(tv_local.getText());
-            tv_visitante.setText(partidoM.getVisitante());
-            tv_r1.setText(String.valueOf(partidoM.getResul1()));
-            tv_r2.setText(String.valueOf(partidoM.getResul2()));
-          //  cb_division.getSelectionModel().select(partidoM.getDivision());
-            LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
+            partidoM.setVisitante(tv_visitante.getText());
+            partidoM.setResul1(Integer.parseInt(tv_r1.getText()));
+            partidoM.setResul2(Integer.parseInt(tv_r2.getText()));
+            partidoM.setDivision((String)cb_division.getSelectionModel().getSelectedItem());
+            Date date = Utils.convertirLocalDate2Date(dp_fecha.getValue());
+            partidoM.setFecha(date);
             Logica.getInstance().modificarPartido(partidoM, indice);
 
         }
@@ -81,7 +82,7 @@ public class DialogoPartidoController {
         tv_visitante.setText(partidoM.getVisitante());
         tv_r1.setText(String.valueOf(partidoM.getResul1()));
         tv_r2.setText(String.valueOf(partidoM.getResul2()));
-       // cb_division.getSelectionModel().select(partidoM.getDivision());
+        cb_division.getSelectionModel().select(partidoM.getDivision());
         LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
         dp_fecha.setValue(localD);
 
