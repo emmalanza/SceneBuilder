@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,8 +10,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emma.views.MainWindowController">
    <children>
+      <ComboBox fx:id="cb_filtro" prefWidth="150.0">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Primera"/>
+                  <String fx:value="Segunda"/>
+                  <String fx:value="Tercera"/>
+                  <String fx:value="Todas"/>
+              </FXCollections>
+          </items>
+      </ComboBox>
       <MenuBar>
         <menus>
           <Menu fx:id="menu_alta" mnemonicParsing="false" text="Partidos">

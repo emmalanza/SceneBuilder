@@ -2,14 +2,19 @@ package emma.views;
 
 import emma.logic.Logica;
 import emma.models.Partido;
+import emma.views.filters.Filtro;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,10 +24,17 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
+        private Filtro filtro;
+
         @FXML
         private Menu menu_alta;
+
         @FXML
         private TableView<Partido> tv_partidos;
+
+        @FXML
+        private ComboBox<String> cb_filtro;
+
         @FXML
         void altaPartido(ActionEvent event) throws IOException {
 
@@ -32,7 +44,8 @@ public class MainWindowController implements Initializable {
                 Stage stage = new Stage();
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.setScene(new Scene(root));
-                stage.show();
+                stage.showAndWait();
+                filtrar();
         }
 
         @FXML
@@ -43,12 +56,13 @@ public class MainWindowController implements Initializable {
                         Parent root = fxmlLoader.load();
                         DialogoPartidoController controller = fxmlLoader.getController();
                         Partido partido = tv_partidos.getSelectionModel().getSelectedItem();
-                        controller.setPartidoModificar(partido,tv_partidos.getSelectionModel().getSelectedIndex());
+                        controller.setPartidoModificar(partido);
 
                         Stage stage = new Stage();
-                        stage.initModality(Modality.WINDOW_MODAL);
+                        stage.initModality(Modality.APPLICATION_MODAL);
                         stage.setScene(new Scene(root, 300, 275));
-                        stage.show();
+                        stage.showAndWait();
+                        filtrar();
                 }
                 catch (IOException e)
                 {
@@ -56,8 +70,25 @@ public class MainWindowController implements Initializable {
                 }
         }
 
+
+
         public void initialize(URL url, ResourceBundle resourceBundle){
             tv_partidos.setItems(Logica.getInstance().getLista());
+            filtro = new Filtro(Logica.getInstance().getLista());
+            cb_filtro.getSelectionModel().selectLast();
+            cb_filtro.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+
+                            tv_partidos.setItems(filtro.filtrar(newValue));
+
+                    }
+            });
+
+        }
+
+        private void filtrar(){
+                tv_partidos.setItems(filtro.filtrar(cb_filtro.getSelectionModel().getSelectedItem()));
         }
     }
 

@@ -22,42 +22,25 @@ public class Logica {
     }
 
     private ObservableList<Partido> listaPartidos = FXCollections.observableArrayList();
-    private ArrayList<Partido> listaPartidos2 = new ArrayList<Partido>();
 
-    FileInputStream fis;
-    FileOutputStream fos;
-    ObjectInputStream ois;
-    ObjectOutputStream oos;
 
     public void addPartido(Partido partido) {
-        listaPartidos2.add(partido);
         listaPartidos.add(partido);
     }
 
-    public void modificarPartido(Partido p, int indice) {
-        listaPartidos.set(indice, p);
+    public void modificarPartido(Partido p) {
+
+        int posicion = listaPartidos.indexOf(p);
+        listaPartidos.set(posicion, p);
     }
 
-    public void borrarPartido(int indice) {
-        listaPartidos.remove(indice);
+    public void borrarPartido(Partido p) {
+        listaPartidos.remove(p);
     }
 
     public ObservableList getLista() {
         return listaPartidos;
     }
 
-    public ObservableList filtrar(String filtro) {
-        ObservableList<Partido> lista_filtro = FXCollections.observableArrayList();
-        if (filtro.equals("Primera") || filtro.equals("Segunda") || filtro.equals("Tercera")) {
-            for (int i = 0; i < listaPartidos.size(); i++) {
-                if (listaPartidos.get(i).getDivision().equals(filtro)) {
-                    lista_filtro.add(listaPartidos.get(i));
-                }
-            }
-            return lista_filtro;
-        } else {
-            return listaPartidos;
-        }
-    }
 
 }

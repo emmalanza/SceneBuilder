@@ -17,7 +17,6 @@ import java.util.Date;
 public class DialogoPartidoController {
 
     private Partido partidoM;
-    private int indice;
 
     @FXML
     private TextField tv_local;
@@ -46,7 +45,7 @@ public class DialogoPartidoController {
             partidoM.setDivision((String)cb_division.getSelectionModel().getSelectedItem());
             Date date = Utils.convertirLocalDate2Date(dp_fecha.getValue());
             partidoM.setFecha(date);
-            Logica.getInstance().modificarPartido(partidoM, indice);
+            Logica.getInstance().modificarPartido(partidoM);
 
         }
 
@@ -73,10 +72,9 @@ public class DialogoPartidoController {
         stage.close();
     }
 
-    public void setPartidoModificar(Partido partidoM, int indice)
+    public void setPartidoModificar(Partido partidoM)
     {
         this.partidoM = partidoM;
-        this.indice = indice;
 
         tv_local.setText(partidoM.getLocal());
         tv_visitante.setText(partidoM.getVisitante());
