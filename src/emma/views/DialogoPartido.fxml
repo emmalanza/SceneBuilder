@@ -1,45 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="untitled" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emma.views.DialogoPartidoController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Diálogo" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emma.views.DialogoPartidoController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <Label layoutX="54.0" layoutY="52.0" text="Equipo local" />
-            <TextField fx:id="tv_local" layoutX="126.0" layoutY="48.0" prefHeight="21.0" prefWidth="120.0" />
-            <Label layoutX="324.0" layoutY="52.0" text="Equipo visitante" />
-            <TextField fx:id="tv_r1" layoutX="138.0" layoutY="115.0" prefHeight="14.0" prefWidth="69.0" />
-            <TextField fx:id="tv_r2" layoutX="275.0" layoutY="115.0" prefHeight="14.0" prefWidth="69.0" />
-            <Label layoutX="59.0" layoutY="119.0" text="Marcador" />
-            <Label layoutX="241.0" layoutY="119.0" text="-" />
-            <TextField fx:id="tv_visitante" layoutX="416.0" layoutY="48.0" prefHeight="21.0" prefWidth="120.0" />
-            <Label layoutX="59.0" layoutY="187.0" text="División" />
-            <Label layoutX="324.0" layoutY="187.0" text="Fecha" />
-            <ComboBox fx:id="cb_division" layoutX="111.0" layoutY="184.0" prefWidth="150.0">
+            <Label layoutX="64.0" layoutY="84.0" text="Equipo local">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+            <TextField fx:id="tv_local" layoutX="147.0" layoutY="79.0" prefHeight="20.0" prefWidth="100.0" />
+            <Label layoutX="319.0" layoutY="83.0" prefHeight="17.0" prefWidth="73.0" text="Equipo visitante">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+            <TextField fx:id="tv_r1" layoutX="212.0" layoutY="149.0" prefHeight="14.0" prefWidth="69.0" />
+            <TextField fx:id="tv_r2" layoutX="360.0" layoutY="149.0" prefHeight="14.0" prefWidth="69.0" />
+            <Label layoutX="130.0" layoutY="153.0" text="Marcador" />
+            <Label layoutX="322.0" layoutY="153.0" text="-" />
+            <TextField fx:id="tv_visitante" layoutX="418.0" layoutY="79.0" prefHeight="20.0" prefWidth="100.0" />
+            <Label layoutX="64.0" layoutY="232.0" text="División" />
+            <Label layoutX="324.0" layoutY="232.0" text="Fecha" />
+            <ComboBox fx:id="cb_division" layoutX="116.0" layoutY="228.0" prefWidth="150.0">
              <items>
                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Primera"/>
-                     <String fx:value="Segunda"/>
-                     <String fx:value="Tercera"/>
+                     <String fx:value="Primera" />
+                     <String fx:value="Segunda" />
+                     <String fx:value="Tercera" />
                  </FXCollections>
              </items>
              </ComboBox>
-            <DatePicker fx:id="dp_fecha" layoutX="369.0" layoutY="184.0" />
-            <Button fx:id="btn_aceptar" layoutX="273.0" layoutY="307.0" mnemonicParsing="false" onAction="#altaModificarPartido" text="ACEPTAR">
+            <DatePicker fx:id="dp_fecha" layoutX="373.0" layoutY="228.0" />
+            <Button fx:id="btn_aceptar" layoutX="197.0" layoutY="300.0" mnemonicParsing="false" onAction="#altaModificarPartido" text="ACEPTAR">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
+            <Button layoutX="340.0" layoutY="300.0" mnemonicParsing="false" onAction="#btn_cancelar" text="CANCELAR">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="14.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+             <image>
+                 <Image url="@res/images.jpg" />
+             </image>
+             </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="328.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@res/images.jpg" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="554.0" layoutY="328.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@res/images.jpg" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="554.0" layoutY="14.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@res/images.jpg" />
+                </image>
+            </ImageView>
          </children></AnchorPane>
   </content>
 </TitledPane>

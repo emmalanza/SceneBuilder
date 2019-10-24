@@ -3,6 +3,7 @@ import emma.logic.Logica;
 import emma.models.Partido;
 import emma.utils.Utils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -10,9 +11,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.util.Date;
+
 
 public class DialogoPartidoController {
 
@@ -33,6 +34,10 @@ public class DialogoPartidoController {
 
     @FXML
     private Button btn_aceptar;
+
+    @FXML
+    private Button btn_cancelar;
+
     @FXML
     void altaModificarPartido(ActionEvent event) {
 
@@ -85,4 +90,11 @@ public class DialogoPartidoController {
         dp_fecha.setValue(localD);
 
     }
+
+
+    public void btn_cancelar(ActionEvent event) {
+        Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
+        stage.close();
+    }
+
 }
