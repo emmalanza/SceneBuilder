@@ -9,12 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainWindowController implements Initializable {
+public class MainWindowController extends BaseController implements Initializable {
 
         private Filtro filtro;
 
@@ -36,40 +34,79 @@ public class MainWindowController implements Initializable {
         private ComboBox<String> cb_filtro;
 
         @FXML
-        void altaPartido(ActionEvent event) throws IOException {
+        private Button btn_borrar;
 
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                Parent root = fxmlLoader.load(getClass().getResource("DialogoPartido.fxml"));
+        @FXML
+        private Button btn_cargar;
 
-                Stage stage = new Stage();
-                stage.initModality(Modality.WINDOW_MODAL);
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
-                filtrar();
+        @FXML
+        private Button btn_guardar;
+
+        @FXML
+        private Button btn_salir;
+
+        @FXML
+        void altaPartido(ActionEvent event) {
+            BaseController controller = cargarDialogo("DialogoPartido.fxml", 600,400);
+            controller.abrirDialogo(true);
+            filtrar();
         }
 
         @FXML
         void modificarPartido(ActionEvent event) {
 
-                try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DialogoPartido.fxml"));
-                        Parent root = fxmlLoader.load();
-                        DialogoPartidoController controller = fxmlLoader.getController();
-                        Partido partido = tv_partidos.getSelectionModel().getSelectedItem();
-                        controller.setPartidoModificar(partido);
+            DialogoPartidoController controller =
+                    (DialogoPartidoController)cargarDialogo("DialogoPartido.fxml",600,400);
+            Partido partido = tv_partidos.getSelectionModel().getSelectedItem();
+            boolean m = controller.setPartidoModificar(partido);
+            if(m==true){
+            controller.abrirDialogo(true);
+            filtrar();}
+                }
 
-                        Stage stage = new Stage();
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.setScene(new Scene(root, 300, 275));
-                        stage.showAndWait();
-                        filtrar();
+
+        @FXML
+        void borrar_partido(ActionEvent event) {
+
+            Partido p = tv_partidos.getSelectionModel().getSelectedItem();
+
+            if (p == null) {
+                Alert alert_null = new Alert(Alert.AlertType.WARNING);
+                alert_null.setTitle("OJO");
+                alert_null.setContentText("¡Debe seleccionar un registro!");
+                alert_null.showAndWait();
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("ALERTA");
+                alert.setHeaderText("Borrado de registro.");
+                alert.setContentText("¿Seguro que quiere borrar el registro?");
+                alert.showAndWait();
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                ;
+                if ((alert.getResult() == ButtonType.OK)) {
+                    Logica.getInstance().borrarPartido(p);
+                    filtrar();
+                    alert2.setContentText("Partido borrado correctamente.");
+                    alert2.showAndWait();
+                } else {
+                    alert2.setContentText("Borrado cancelado.");
+                    alert2.showAndWait();
                 }
-                catch (IOException e)
-                {
-                        e.printStackTrace();
-                }
+            }
         }
 
+        @FXML
+        void salir(ActionEvent event){
+
+           /* Stage stage = getStage();
+            stage.close();*/
+
+            Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
+            stage.close();
+
+        }
 
 
         public void initialize(URL url, ResourceBundle resourceBundle){

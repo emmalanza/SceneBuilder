@@ -6,19 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.Date;
 
 
-public class DialogoPartidoController {
+public class DialogoPartidoController extends BaseController{
 
     private Partido partidoM;
-
     @FXML
     private TextField tv_local;
     @FXML
@@ -31,10 +27,8 @@ public class DialogoPartidoController {
     private ComboBox<String> cb_division;
     @FXML
     private DatePicker dp_fecha;
-
     @FXML
     private Button btn_aceptar;
-
     @FXML
     private Button btn_cancelar;
 
@@ -73,27 +67,38 @@ public class DialogoPartidoController {
 
         }
 
-        Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
+        Stage stage = getStage();
         stage.close();
     }
 
-    public void setPartidoModificar(Partido partidoM)
+    public boolean setPartidoModificar(Partido partidoM)
     {
         this.partidoM = partidoM;
 
-        tv_local.setText(partidoM.getLocal());
-        tv_visitante.setText(partidoM.getVisitante());
-        tv_r1.setText(String.valueOf(partidoM.getResul1()));
-        tv_r2.setText(String.valueOf(partidoM.getResul2()));
-        cb_division.getSelectionModel().select(partidoM.getDivision());
-        LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
-        dp_fecha.setValue(localD);
+        if(partidoM!=null) {
 
+            tv_local.setText(partidoM.getLocal());
+            tv_visitante.setText(partidoM.getVisitante());
+            tv_r1.setText(String.valueOf(partidoM.getResul1()));
+            tv_r2.setText(String.valueOf(partidoM.getResul2()));
+            cb_division.getSelectionModel().select(partidoM.getDivision());
+            LocalDate localD = Utils.convertiDate2LocalDate(partidoM.getFecha());
+            dp_fecha.setValue(localD);
+            return true;
+
+        } else{
+
+            Alert alert_null = new Alert(Alert.AlertType.WARNING);
+            alert_null.setTitle("OJO");
+            alert_null.setContentText("¡Debes seleccionar un registro!");
+            alert_null.showAndWait();
+            return false;
+
+        }
     }
 
-
     public void btn_cancelar(ActionEvent event) {
-        Stage stage = ((Stage)((Node)event.getSource()).getScene().getWindow());
+        Stage stage = getStage();
         stage.close();
     }
 
