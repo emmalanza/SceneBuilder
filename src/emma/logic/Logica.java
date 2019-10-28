@@ -3,9 +3,7 @@ package emma.logic;
 import emma.models.Partido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class Logica {
 

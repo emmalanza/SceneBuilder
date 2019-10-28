@@ -7,17 +7,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
@@ -98,6 +96,83 @@ public class MainWindowController extends BaseController implements Initializabl
         }
 
         @FXML
+        public void guardar (ActionEvent event) {
+
+            FileChooser fileChooser = new FileChooser();
+            //Deja al usuario solo seleccionar ciertos tipos de archivo
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de texto (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(getStage());
+
+            ObjectOutputStream oos = null;
+            ArrayList<Partido> lista = new ArrayList<Partido>();
+
+            for(int i = 0; i<Logica.getInstance().getLista().size();i++){
+                lista.add((Partido) Logica.getInstance().getLista().get(i));
+            }
+
+            if(file!=null){
+
+                try{
+
+                    oos  = new ObjectOutputStream(new FileOutputStream(file));
+                    oos.writeObject(lista);
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        oos.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        }
+
+
+        @FXML
+        public void cargar(ActionEvent actionEvent) {
+
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de texto (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(getStage());
+
+            ObjectInputStream ois = null;
+            ArrayList<Partido> lista = new ArrayList<Partido>();
+
+            if (file != null) {
+
+
+                try{
+
+                    ois  = new ObjectInputStream(new FileInputStream(file));
+                    lista = (ArrayList) ois.readObject();
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        ois.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+
+                for(int i = 0;i<lista.size(); i++){
+                    Logica.getInstance().getLista().add(lista.get(i));
+                }
+
+
+            }
+        }
+
+        @FXML
         void salir(ActionEvent event){
 
            /* Stage stage = getStage();
@@ -127,5 +202,6 @@ public class MainWindowController extends BaseController implements Initializabl
         private void filtrar(){
                 tv_partidos.setItems(filtro.filtrar(cb_filtro.getSelectionModel().getSelectedItem()));
         }
-    }
+
+}
 

@@ -78,8 +78,8 @@
             <ButtonBar layoutX="12.0" layoutY="271.0" prefHeight="40.0" prefWidth="575.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="270.0">
                <buttons>
                 <Button fx:id="btn_borrar" mnemonicParsing="false" onAction="#borrar_partido" text="Borrar" />
-                  <Button fx:id="btn_cargar" mnemonicParsing="false" text="Cargar" />
-                  <Button fx:id="btn_guardar" mnemonicParsing="false" text="Guardar" />
+                  <Button fx:id="btn_cargar" mnemonicParsing="false" text="Cargar" onAction="#cargar"/>
+                  <Button fx:id="btn_guardar" mnemonicParsing="false" text="Guardar" onAction="#guardar" />
                   <Button fx:id="btn_salir" mnemonicParsing="false" text="Salir"  onAction="#salir"/>
                </buttons>
                <padding>

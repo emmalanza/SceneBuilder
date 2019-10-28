@@ -3,16 +3,20 @@ import emma.logic.Logica;
 import emma.models.Partido;
 import emma.utils.Utils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 
-public class DialogoPartidoController extends BaseController{
+public class DialogoPartidoController extends BaseController implements Initializable {
 
     private Partido partidoM;
     @FXML
@@ -100,6 +104,21 @@ public class DialogoPartidoController extends BaseController{
     public void btn_cancelar(ActionEvent event) {
         Stage stage = getStage();
         stage.close();
+    }
+
+    public void initialize (URL url, ResourceBundle resourceBundle){
+
+        ValidationSupport validationSupport = new ValidationSupport();
+        validationSupport.registerValidator(tv_local, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+        validationSupport.registerValidator(tv_visitante, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+        validationSupport.registerValidator(tv_r1, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+        validationSupport.registerValidator(tv_r2, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+        validationSupport.registerValidator(cb_division, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+        validationSupport.registerValidator(dp_fecha, Validator.createEmptyValidator("Este campo no puede estar vacío."));
+
+
+        btn_aceptar.disableProperty().bind(validationSupport.invalidProperty());
+
     }
 
 }
